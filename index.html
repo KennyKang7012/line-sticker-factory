@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Styles -->
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.png" type="image/png">
     <!-- JSZip & FileSaver -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -27,7 +28,9 @@
     <header class="glass-panel">
         <div class="container header-content">
             <div class="logo">
-                <i class="fa-solid fa-shapes"></i>
+                <!-- Use favicon image as logo icon if desired, or keep FontAwesome -->
+                <img src="favicon.png" alt="Logo"
+                    style="width: 32px; height: 32px; margin-right: 10px; border-radius: 6px;">
                 <h1>Line Sticker Factory</h1>
             </div>
             <nav>
@@ -45,6 +48,18 @@
             <h2>打造你的 <span class="gradient-text">LINE 貼圖</span> 帝國</h2>
             <p>從 AI 靈感到上架販售，只需幾分鐘。自動切圖、去背、格式化，完全免費。</p>
         </section>
+
+        <!-- ... (Prompt Generator & Image Processor content remains the same) ... -->
+
+        <!-- Step 1 to Step 2 content is skipped here for brevity in replacement, 
+             BUT replace_file_content needs contiguous block. 
+             I will limit the scope of this replacement to HEAD and HEADER first, 
+             then separate call for FOOTER if needed, or try to find a better block.
+             Actually, HEAD and FOOTER are far apart. I should use multi_replace or two calls.
+             The prompt asks for "Add to index.html...".
+             
+             Let's use multi_replace_file_content since I need to touch HEAD and FOOTER.
+        -->
 
         <!-- Step 1: Prompt Generator -->
         <section id="prompt-section" class="card glass-panel fade-in-up">
@@ -245,9 +260,12 @@
     <footer class="glass-panel">
         <div class="container footer-content">
             <p>&copy; 2025 Line Sticker Factory. By Antigravity.</p>
-            <div class="socials">
-                <a href="#"><i class="fa-brands fa-github"></i></a>
-                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            <div class="footer-links" style="display: flex; gap: 20px;">
+                <a href="mailto:kenny7012@gmail.com" style="text-decoration: none; color: var(--text-secondary);"><i
+                        class="fa-solid fa-envelope"></i> kenny7012@gmail.com</a>
+                <a href="https://github.com/KennyKang7012" target="_blank"
+                    style="text-decoration: none; color: var(--text-secondary);"><i class="fa-brands fa-github"></i>
+                    GitHub</a>
             </div>
         </div>
     </footer>
