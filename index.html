@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE 貼圖自動化助手 | Line Sticker Factory</title>
+    <meta name="description" content="AI 輔助 LINE 貼圖製作工具，自動切圖、去背、打包一鍵完成。">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- JSZip & FileSaver -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+
+<body>
+    <div class="background-mesh"></div>
+
+    <header class="glass-panel">
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fa-solid fa-shapes"></i>
+                <h1>Line Sticker Factory</h1>
+            </div>
+            <nav>
+                <a href="#prompt-section" class="nav-link active">1. AI 提示詞</a>
+                <a href="#processor-section" class="nav-link">2. 貼圖工廠</a>
+                <a href="https://creator.line.me/zh-hant/" target="_blank" class="nav-link"><i
+                        class="fa-solid fa-external-link-alt"></i> LINE Creators Market</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2>打造你的 <span class="gradient-text">LINE 貼圖</span> 帝國</h2>
+            <p>從 AI 靈感到上架販售，只需幾分鐘。自動切圖、去背、格式化，完全免費。</p>
+        </section>
+
+        <!-- Step 1: Prompt Generator -->
+        <section id="prompt-section" class="card glass-panel fade-in-up">
+            <div class="card-header">
+                <div class="step-badge">01</div>
+                <h3>AI 繪圖提示詞生成器</h3>
+            </div>
+            <div class="card-body">
+
+                <!-- 1. Topic Selection -->
+                <div class="form-group">
+                    <label>1. 選擇主題內容 (Topic Content)</label>
+                    <div class="btn-group" id="topic-group">
+                        <button class="btn-select" data-value="daily">日常用語</button>
+                        <button class="btn-select" data-value="greeting">打招呼</button>
+                        <button class="btn-select active" data-value="festival">節日祝福</button>
+                        <button class="btn-select" data-value="response">回應篇</button>
+                        <button class="btn-select" data-value="work">上班族</button>
+                        <button class="btn-select" data-value="couple">老公老婆</button>
+                        <button class="btn-select" data-value="meme">迷因搞笑</button>
+                        <!-- New Creative Topics -->
+                        <button class="btn-select" data-value="travel">旅行出遊</button>
+                        <button class="btn-select" data-value="school">校園生活</button>
+                        <button class="btn-select" data-value="fitness">健身運動</button>
+                    </div>
+                </div>
+
+                <!-- 2. Style Selection -->
+                <div class="form-group">
+                    <label>2. 選擇畫風 (Style)</label>
+                    <div class="btn-group" id="style-group">
+                        <button class="btn-select active" data-value="3d-render">通用 Q 版</button>
+                        <button class="btn-select" data-value="realistic">寫實風格</button>
+                        <button class="btn-select" data-value="3d-clay">3D 立體</button>
+                        <button class="btn-select" data-value="hand-drawn">手繪塗鴉</button>
+                        <button class="btn-select" data-value="pixel-art">像素風</button>
+                        <button class="btn-select" data-value="anime">日系動漫</button>
+                        <!-- New Styles -->
+                        <button class="btn-select" data-value="flat-illustration">扁平插畫</button>
+                        <button class="btn-select" data-value="watercolor">水彩暈染</button>
+                        <button class="btn-select" data-value="retro-cartoon">復古卡通</button>
+                        <button class="btn-select" data-value="pop-art">美式波普</button>
+                    </div>
+                </div>
+
+                <!-- Character Description -->
+                <div class="form-group">
+                    <label for="char-desc">角色描述 (Character)</label>
+                    <input type="text" id="char-desc" placeholder="例如：一隻戴著太陽眼鏡的橘色貓咪 (Orange cat wearing sunglasses)">
+                </div>
+
+                <div class="form-group">
+                    <label>預設關鍵字 (Keywords)</label>
+                    <div class="tags" id="default-tags">
+                        <span class="tag">white outline</span>
+                        <span class="tag">green background</span>
+                        <span class="tag">sticker sheet</span>
+                        <span class="tag">grid 4x3</span>
+                        <span class="tag">no emoji</span>
+                    </div>
+                </div>
+
+                <div class="prompt-output-container">
+                    <label for="generated-prompt">生成的 Prompt</label>
+                    <div class="copy-wrapper">
+                        <textarea id="generated-prompt" readonly></textarea>
+                        <button id="copy-btn" class="btn btn-primary"><i class="fa-regular fa-copy"></i> 複製</button>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>提示：請將生成的 Prompt 貼至您習慣的 AI 繪圖工具（如 Google Gemini、Midjourney、DALL-E 等）生成圖片。若使用
+                        Gemini，可上傳參考圖片輔助生成。</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 2: Image Processor -->
+        <section id="processor-section" class="card glass-panel fade-in-up" style="animation-delay: 0.1s;">
+            <div class="card-header">
+                <div class="step-badge">02</div>
+                <h3>貼圖自動化工廠</h3>
+            </div>
+            <div class="card-body">
+
+                <!-- Initial View: Split Layout -->
+                <div id="processor-initial" class="split-layout">
+                    <!-- Left: Upload Card -->
+                    <div class="upload-container glass-panel-dark">
+                        <h4>上傳您的貼圖原始檔</h4>
+                        <div class="upload-instructions">
+                            <p>請上傳 AI 生成的 4x3 網格圖 (JPG/PNG)，建議規格：</p>
+                            <ul>
+                                <li>整體為 4欄 x 3列 佈局，共 12 張。</li>
+                                <li>總尺寸建議：1480 x 960 px 以上。</li>
+                                <li>背景需為純綠色 (#00FF00) 以利自動去背。</li>
+                            </ul>
+                        </div>
+
+                        <div id="drop-zone" class="upload-area">
+                            <input type="file" id="file-input" accept="image/*" hidden>
+                            <div class="upload-content">
+                                <div class="icon-circle">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                </div>
+                                <span class="btn btn-primary mt-4">選擇檔案</span>
+                                <p class="drag-text">或是將圖片拖曳至此</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Instructions Card -->
+                    <div class="guide-container glass-panel-dark">
+                        <h4>【Line 貼圖自動化助手 步驟說明】</h4>
+
+                        <div class="guide-steps">
+                            <div class="guide-step">
+                                <div class="step-icon">1</div>
+                                <div class="step-content">
+                                    <h5>Step 1 : 先把你的貼圖「生」出來！</h5>
+                                    <p>使用上方的【AI 繪圖提示詞生成器】，挑選喜歡的主題與畫風，複製 Prompt 到 AI 工具 (如 Gemini) 生成可愛的 4x3 貼圖素材。</p>
+                                </div>
+                            </div>
+
+                            <div class="guide-step">
+                                <div class="step-icon">2</div>
+                                <div class="step-content">
+                                    <h5>Step 2 : 一鍵搞定切圖＋去背！</h5>
+                                    <p>將生好的圖片上傳到左側。本工具會自動：</p>
+                                    <ul>
+                                        <li>✂️ 智慧切割 12 張小圖</li>
+                                        <li>🎨 自動去除綠色背景</li>
+                                        <li>📐 縮放至 LINE 規範尺寸</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="guide-step">
+                                <div class="step-icon">3</div>
+                                <div class="step-content">
+                                    <h5>Step 3 : 打包上傳 LINE Creators Market</h5>
+                                    <p>確認預覽無誤後，下載 Zip 檔。解壓後直接上傳至 LINE 後台，輕鬆上架你的專屬貼圖！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processor Processing UI (Hidden initially) -->
+                <div id="processor-ui" class="processor-ui hidden">
+                    <div class="controls-panel glass-panel-dark">
+                        <h4><i class="fa-solid fa-sliders"></i> 處理設定</h4>
+
+                        <div class="control-group">
+                            <label for="tolerance">去背容忍度 (Tolerance): <span id="tolerance-val">40</span></label>
+                            <input type="range" id="tolerance" min="0" max="100" value="40">
+                        </div>
+
+                        <div class="control-group">
+                            <label for="smoothing">邊緣平滑 (Feathering): <span id="smoothing-val">2</span>px</label>
+                            <input type="range" id="smoothing" min="0" max="10" value="2">
+                        </div>
+
+                        <div class="actions">
+                            <button id="process-btn" class="btn btn-accent"><i
+                                    class="fa-solid fa-wand-magic-sparkles"></i> 重新處理</button>
+                            <button id="download-btn" class="btn btn-primary lg"><i class="fa-solid fa-file-zipper"></i>
+                                下載貼圖包 (Zip)</button>
+                            <button id="reset-btn" class="btn btn-secondary mt-2"><i class="fa-solid fa-arrow-left"></i>
+                                上傳新圖片</button>
+                        </div>
+                    </div>
+
+                    <div class="preview-area">
+                        <div class="preview-header">
+                            <h4>處理結果預覽</h4>
+                            <span class="preview-hint"><i class="fa-solid fa-info-circle"></i> 點擊圖片可檢視大圖</span>
+                        </div>
+                        <div id="stickers-grid" class="stickers-grid">
+                            <!-- Stickers will be injected here -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Image Zoom Modal -->
+        <div id="image-modal" class="modal">
+            <span class="close-modal">&times;</span>
+            <img class="modal-content" id="modal-img">
+            <div id="caption"></div>
+        </div>
+
+    </main>
+
+    <footer class="glass-panel">
+        <div class="container footer-content">
+            <p>&copy; 2025 Line Sticker Factory. By Antigravity.</p>
+            <div class="socials">
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="image-processor.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

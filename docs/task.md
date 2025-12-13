@@ -1,0 +1,33 @@
+# Project Tasks: Line Sticker Factory
+
+- [x] 研究需求與參考網站 <!-- id: 0 -->
+    - [x] 分析 https://meikochang.github.io/line-sticker-factory/ 功能
+    - [x] 確定技術棧
+- [x] 規劃實作計畫 <!-- id: 1 -->
+    - [x] 撰寫 implementation_plan.md
+- [x] 專案初始化 <!-- id: 2 -->
+    - [x] 設定基本檔案結構 (HTML/CSS/JS)
+    - [x] 設定開發環境
+- [x] 核心功能實作 <!-- id: 3 -->
+    - [x] 圖片上傳與預覽
+    - [x] 圖片裁切與縮放 (符合 LINE 貼圖規範)
+    - [x] 自動生成不同尺寸 (Main, Tab, Sticker)
+    - [x] 打包下載 (Zip)
+- [x] 介面優化 <!-- id: 4 -->
+    - [x] 美化 UI (依據 guidelines)
+    - [x] 響應式設計
+    - [x] 新增主題內容選擇 (日常/節日等)
+    - [x] 新增 3 個創意主題 (旅行/校園/健身)
+    - [x] 修正 Prompt Tip 文字
+    - [x] 重新設計貼圖工廠區塊 (Split Layout)
+    - [x] 實作 Main/Tab 手動選擇功能 (UI & Logic Implemented)
+    - [x] 新增 4 種創意畫風 (插畫/水彩/復古/波普)
+- [x] 驗證與測試 <!-- id: 5 -->
+    - [x] 測試圖片處理流程 (UI Layout Verified)
+    - [x] 驗證打包結果 (需使用者手動測試)
+    - [x] 修復圖片放大檢視功能 (Modal Zoom)
+    - [x] 修復 Zip 下載無副檔名/無法開啟問題
+- [x] 撰寫與整理文件 <!-- id: 6 -->
+    - [x] 撰寫使用說明 (Walkthrough)
+    - [x] 建立 README.md
+    - [x] 整理文件至 docs 資料夾
