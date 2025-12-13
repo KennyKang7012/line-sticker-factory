@@ -57,5 +57,11 @@ line-sticker-factory/
     └── walkthrough.md
 ```
 
+## 🙏 致謝 (Credits)
+本專案分析並參考了 [Line Sticker Factory](https://meikochang.github.io/line-sticker-factory/) 的功能架構，並在此基礎上進行了重構、介面優化與功能擴充。
+
+## 📧 聯絡資訊 (Contact)
+如有任何問題或建議，歡迎聯繫：[kenny7012@gmail.com](mailto:kenny7012@gmail.com)
+
 ## 📝 授權
 MIT License
