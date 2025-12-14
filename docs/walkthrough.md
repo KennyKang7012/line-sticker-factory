@@ -17,6 +17,8 @@
 4. **複製 Prompt**：
    點擊「複製」按鈕，將完整的提示詞貼到您的 AI 繪圖工具（推薦 Google Gemini 或 Midjourney）。
 
+   > **Prompt 靈感來源**：本工具的提示詞模板架構參考自 [Meiko微課頻道](https://www.youtube.com/@meiko1)，該頻道提供豐富的 AI 繪圖教學。
+
 ## 步驟 2：上傳與處理圖片
 
 當您從 AI 工具獲得一張 **4x3 網格的綠底圖片** 後：
